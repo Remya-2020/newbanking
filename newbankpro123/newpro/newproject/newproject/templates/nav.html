@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<!--<style>
+    body
+    {
+    background-color:#DFD3E3
+    }
+
+
+
+
+</style>-->
+</head>
+<body>
+<nav class="navbar navbar-light bg-dark">
+  <a class="navbar-brand" href="" >
+      <h3 style="color:white;"><strong>Banko</strong></h3>
+  </a>
+    <div class="dropdown">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+    Branches
+  </a>
+
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="https://en.wikipedia.org/wiki/Thiruvananthapuram">Thiruvananthapuram</a>
+    <a class="dropdown-item" href="https://en.wikipedia.org/wiki/Pathanamthitta_district">Pathanamthitta</a>
+    <a class="dropdown-item" href="https://en.wikipedia.org/wiki/Malappuram_district">Malappuram</a>
+      <a class="dropdown-item" href="https://en.wikipedia.org/wiki/Ernakulam">Ernakulam</a>
+      <a class="dropdown-item" href="https://en.wikipedia.org/wiki/Palakkad">Paklakkad</a>
+  </div>
+</div>
+
+    <!--<a href="{% url 'login_view'  %}" class="btn btn-success ">Login</a>
+    <a href="{% url 'register'  %}" class="btn btn-success ">Register</a>-->
+     {% if user.is_authenticated %}
+    <h4>Hello {{user.username}}</h4>
+    <a href="{% url 'logout'  %}" class="btn btn-success">Logout</a></li>
+
+    {% else %}
+    <a href="{% url 'login_view'  %}" class="btn btn-success ">Login</a>
+    <a href="{% url 'register'  %}" class="btn btn-success ">Register</a>
+    {% endif %}
+
+</nav>
+
+{% block body %}
+{% endblock %}
+
+
+</body>
+</html>

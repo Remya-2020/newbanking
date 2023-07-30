@@ -1,0 +1,181 @@
+{% extends 'nav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Form</title>
+{% block body %}
+<style>
+
+body{
+  font-family: Calibri, Helvetica, sans-serif;
+  background-color: pink;
+}
+.container {
+width:500px;
+margin-left:280px;
+    padding: 30px;
+  background-color: lightblue;
+}
+
+input[type=text], input[type=password],input[type=date],input[type=number],input[type=tel],input[type=email], textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+input[type=text]:focus, input[type=password]:focus {
+  background-color: orange;
+  outline: none;
+}
+ div {
+            padding: 10px 0;
+         }
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+.registerbtn {
+  background-color: #4CAF50;
+  color: black;
+  padding: 10px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+   font-weight: bold;
+}
+.registerbtn:hover {
+   background-color:red;
+  opacity: 1;
+}
+
+</style>
+
+<script>
+
+        var branches = {
+        "Thiruvananthapuram": ["Attingal", "Pothencode", "Kattakkada","Varkala"],
+        "Pathanamthitta": ["Thiruvalla", "Adoor", "Pandalam","Konni"],
+        "Malappuram": ["Nilambur", "Perinthalmanna", "Edakkara","Kottakkal"],
+        "Ernakulam": ["Kochi", "Angamaly", "Thrippunithura","Kalamasseri"],
+        "Palakkad": ["Pattambi", "Ottappalam", "Mannarkad","Shornur"]
+        };
+
+
+        function updateBranches() {
+              var district = document.getElementById("district");
+              var branch = document.getElementById("branch");
+              branch.innerHTML = "";
+              var selectedDistrict = district.value;
+              var options = branches[selectedDistrict];
+
+                for (var i = 0; i < options.length; i++) {
+                var option = document.createElement("option");
+                option.value = options[i];
+                option.text = options[i];
+        branch.appendChild(option);
+        }
+        }
+
+function showpopup() {
+
+document.write("Your application was submitted");
+document.write("<a href='{% url "home"  %}'>Home Page</a>");
+
+}
+
+</script>
+</head>
+<body>
+
+{% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+      {% if message.tags %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+      {% else %}
+          <li>{{ message }}</li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+{% endif %}
+
+
+
+          <form action="#" method="POST" onsubmit="showpopup()">
+            {% csrf_token %}
+
+            <div class="container">
+                  <center>  <h1> Application  Form</h1> </center>
+                  <hr>
+                  <label> Name </label>
+                  <input type="text" name="first_name" placeholder= "enter your name" size="15"   required error_messages={"unique":"Thisemailalreadyexists"}/>
+                  <label> Date of birth </label>
+                  <input type ="date" name="dob" placeholder="enter date of birth" size="15" required><br>
+                  <label> Age </label>
+                  <input type ="number" name="age" placeholder="enter your age" size="15" required><br>
+              <div>
+                  <label>
+                  Gender :
+                  </label><br>
+
+                  <input type="radio" value="Male" name="gender" checked > Male
+                  <input type="radio" value="Female" name="gender"> Female
+                  <input type="radio" value="Other" name="gender"> Other
+              </div>
+              <div>
+                  <label>
+                  District :
+                  </label>
+                        <select id="district" name="district" onchange="updateBranches()">
+                        <option value="">Select district</option>
+                          <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                          <option value="Pathanamthitta">Pathanamthitta</option>
+                          <option value="Malappuram">Malappuram</option>
+                          <option value="Ernakulam">Ernakulam</option>
+                          <option value="Palakkad">Palakkad</option>
+                        </select>
+                      <br><br>
+                          Branch:
+                          <select id="branch" name="branch">
+                          <option value="">Select branch</option>
+                          </select>
+                          <br>
+                          <br>
+              </div>
+
+                  <label>
+                  Phone :
+                  </label>
+                  <input type ="tel" name="phoneno" placeholder="Phone number" size="10" required><br>
+                  <label>Email</label>
+                  <input type ="email" name="email" placeholder="Email" required error_messages={"unique":"Thisemailalreadyexists"}><br>
+                  <label>Current Address </label>
+                  <textarea cols="80" rows="5" placeholder="Current Address" name="address" value="address" required></textarea>
+                  <label>Account type</label><br>
+                  <input type="checkbox" name="accounttype">Savings account</br>
+                  <input type="checkbox" name="accounttype">Current account</br>
+                  <input type="checkbox" name="accounttype">Fixed deposit</br><br>
+
+                  <label>Materials provide</label><br>
+                  <input type="checkbox" name="materials">Debit card</br>
+                  <input type="checkbox" name="materials">Credit card</br>
+                  <input type="checkbox" name="materials">Cheque book</br><br>
+
+          <!--<input type="submit" value="Submit" class="registerbtn" onclick="showpopup()"><br>-->
+                  <input type="submit" value="Submit" class="registerbtn" ><br>
+                   <!--<a href="{% url 'logout' %}">Logout</a>-->
+
+          </div>
+
+          </form>
+
+
+{% endblock %}
+</body>
+</html>
